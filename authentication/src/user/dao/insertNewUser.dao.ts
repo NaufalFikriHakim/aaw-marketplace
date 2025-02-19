@@ -1,6 +1,6 @@
 import { NewUser } from "../../../db/schema/users";
 import * as schema from '../../../db/schema/users'
-import { db } from "@src/db";
+import { db } from "../../db";
 
 export const insertNewUser = async (data: NewUser) => {
     console.log("insertNewUser data"   ,data)

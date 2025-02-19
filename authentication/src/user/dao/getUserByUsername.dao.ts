@@ -1,5 +1,5 @@
 import * as schema from '../../../db/schema/users'
-import { db } from "@src/db";
+import { db } from "../../db";
 import { eq, and } from "drizzle-orm";
 
 export const getUserByUsername = async (username: string, tenant_id: string) => {

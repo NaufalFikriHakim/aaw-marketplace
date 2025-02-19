@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { getUserByUsername } from '../dao/getUserByUsername.dao';
 
-import { InternalServerErrorResponse, NotFoundResponse } from "@src/shared/commons/patterns"
+import { InternalServerErrorResponse, NotFoundResponse } from "../../commons/patterns"
 import { User } from '../../../db/schema/users';
 
 export const loginService = async (

@@ -1,11 +1,11 @@
-import { InternalServerErrorResponse, NotFoundResponse } from "@src/shared/commons/patterns"
+import { InternalServerErrorResponse, NotFoundResponse } from "./commons/patterns"
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
-import { getUserByUsername } from "../authentication/src/user/dao/getUserByUsername.dao";
-import { NewUser, User } from "../authentication/db/schema/users";
-import { registerService } from "../authentication/src/user/services";
-import { insertNewUser } from "../authentication/src/user/dao/insertNewUser.dao";
+import { getUserByUsername } from "./user/dao/getUserByUsername.dao";
+import { NewUser, User } from "../db/schema/users";
+import { registerService } from "./user/services";
+import { insertNewUser } from "./user/dao/insertNewUser.dao";
 
 export const GenerateAdminToken = async (
     username: string,
