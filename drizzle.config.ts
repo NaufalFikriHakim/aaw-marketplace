@@ -10,6 +10,6 @@ export default {
     port: (process.env.DB_PORT as number | undefined) ?? 5432,
     user: process.env.DB_USER ?? "postgres",
     password: process.env.DB_PASSWORD ?? "postgres",
-    database: process.env.DB_NAME ?? "postgres",
+    database: process.env.DB_NAME ?? "aaw_marketplace",
   },
 } satisfies Config;
