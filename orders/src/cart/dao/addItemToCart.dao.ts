@@ -1,4 +1,4 @@
-import { db } from "@src/db";
+import { db } from "../../db";
 import { NewCart } from "../../../db/schema/cart";
 import * as schema from '../../../db/schema/cart';
 
