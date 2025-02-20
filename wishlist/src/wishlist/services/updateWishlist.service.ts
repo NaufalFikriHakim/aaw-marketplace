@@ -1,4 +1,4 @@
-import { InternalServerErrorResponse } from "@src/shared/commons/patterns";
+import { InternalServerErrorResponse } from "../../commons/patterns";
 import { updateWishlistById } from "../dao/updateWishlistById.dao";
 
 export const updateWishlistService = async (

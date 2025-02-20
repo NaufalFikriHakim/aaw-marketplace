@@ -1,8 +1,8 @@
-import { InternalServerErrorResponse } from "@src/shared/commons/patterns";
+import { InternalServerErrorResponse } from "../../commons/patterns";
 import { getWishlistDetailById } from "../dao/getWishlistDetailById.dao";
 import { getWishlistById } from "../dao/getWishlistById.dao";
 import { removeProductFromWishlist } from "../dao/removeProductFromWishlist.dao";
-import { User } from "@src/shared/types";
+import { User } from "../../";
 
 export const removeProductFromWishlistService = async (
     id: string,

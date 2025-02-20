@@ -1,8 +1,8 @@
-import { NewWishlistDetail } from "@db/schema/wishlist/wishlistDetail";
-import { InternalServerErrorResponse } from "@src/shared/commons/patterns";
+import { NewWishlistDetail } from "../../../db/schema/wishlistDetail";
+import { InternalServerErrorResponse } from "../../commons/patterns";
 import { addProductToWishlist } from "../dao/addProductToWishlist.dao";
 import { getWishlistById } from "../dao/getWishlistById.dao";
-import { User } from "@src/shared/types";
+import { User } from "../../";
 
 export const addProductToWishlistService = async (
     wishlist_id: string,

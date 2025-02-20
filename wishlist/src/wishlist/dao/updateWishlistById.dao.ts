@@ -1,5 +1,5 @@
-import { db } from "@src/db";
-import * as schema from '@db/schema/wishlist/wishlist';
+import { db } from "../../db";
+import * as schema from '../../../db/schema/wishlist';
 import { and, eq } from "drizzle-orm";
 
 export const updateWishlistById = async (
