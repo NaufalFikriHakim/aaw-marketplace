@@ -1,29 +1,136 @@
 version: '3.8'
 
 services:
-  marketplace:
-    build: .
+  authentication:
+    build: ./authentication
     ports:
       - "8000:8000"
     environment:
       - TENANT_ID=47dd6b24-0b23-46b0-a662-776158d089ba
       - JWT_SECRET=auth_ms_jwt_secret
-      - DB_HOST=db
+      - DB_HOST=db_authentication
       - DB_PORT=5432
       - DB_USER=postgres
       - DB_PASSWORD=postgres
-      - DB_NAME=marketplace
+      - DB_NAME=authentication
     depends_on:
-      - db
+      - db_authentication
 
-  db:
+  orders:
+    build: ./orders
+    ports:
+      - "8001:8000"
+    environment:
+      - TENANT_ID=47dd6b24-0b23-46b0-a662-776158d089ba
+      - JWT_SECRET=auth_ms_jwt_secret
+      - DB_HOST=db_orders
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=authentication
+    depends_on:
+      - db_orders
+
+  products:
+    build: ./products
+    ports:
+      - "8002:8000"
+    environment:
+      - TENANT_ID=47dd6b24-0b23-46b0-a662-776158d089ba
+      - JWT_SECRET=auth_ms_jwt_secret
+      - DB_HOST=db_products
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=authentication
+      - AUTHENTICATION_API=localhost:8000/api/auth
+      - TENANT_API=localhost:8003/api/tenant
+    depends_on:
+      - db_products
+  
+  tenant:
+    build: ./orders
+    ports:
+      - "8003:8000"
+    environment:
+      - TENANT_ID=47dd6b24-0b23-46b0-a662-776158d089ba
+      - JWT_SECRET=auth_ms_jwt_secret
+      - DB_HOST=db_tenant
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=authentication
+      - AUTHENTICATION_API=localhost:8000/api/auth
+    depends_on:
+      - db_tenant
+
+  wishlist:
+    build: ./wishlist
+    ports:
+      - "8004:8000"
+    environment:
+      - TENANT_ID=47dd6b24-0b23-46b0-a662-776158d089ba
+      - JWT_SECRET=auth_ms_jwt_secret
+      - DB_HOST=db_wishlist
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=authentication
+    depends_on:
+      - db_wishlist
+
+  db_authentication:
     image: postgres:latest
     environment:
-      POSTGRES_DB: marketplace
+      POSTGRES_DB: authentication
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
       - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  db_orders:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: orders
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  db_products:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: products
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  db_tenant:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: tenant
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5435:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  db_wishlist:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: wishlist
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5436:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 

@@ -1,8 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { UnauthenticatedResponse } from "../commons/patterns/exceptions";
-import { verifyAdminTokenService } from "../../../authentication/src/user/services";
-import { getTenantService } from "../../../tenant/src/tenant/services";
 
 export const verifyJWTProduct = async (
   req: Request,
@@ -15,7 +13,19 @@ export const verifyJWTProduct = async (
       return res.status(401).send({ message: "Invalid token" });
     }
 
-    const payload = await verifyAdminTokenService(token);
+    const AUTHENTICATION_API = process.env.AUTHENTICATION_API;
+    const TENANT_API = process.env.TENANT_API;
+
+    // TODO: change the endpoint to get from env
+    const response = await fetch(`${AUTHENTICATION_API}/verify-admin-token`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ token }),
+    });
+
+    const payload = await response.json();
     if (payload.status !== 200) {
       return res.status(401).send({ message: "Invalid token" });
     }
@@ -38,7 +48,18 @@ export const verifyJWTProduct = async (
     if (!SERVER_TENANT_ID) {
       return res.status(500).send({ message: "Server Tenant ID not found" });
     }
-    const tenantPayload = await getTenantService(SERVER_TENANT_ID);
+
+    //TODO: change the endpoint to get from env
+    const tenantResponse = await fetch(`${TENANT_API}/${SERVER_TENANT_ID}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const tenantPayload = await tenantResponse.json();
+
 
     if (
       tenantPayload.status !== 200 ||

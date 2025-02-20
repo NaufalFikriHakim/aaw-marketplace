@@ -32,7 +32,7 @@ app.use('/api/wishlist', wishlistRoutes);
 
 // Health check endpoint
 app.get('/health', (_, res) => {
-  res.status(200).json({ status: 'healthy' });
+  res.status(200).json({ status: 'healthy wishlist' });
 });
 
 // Root endpoint

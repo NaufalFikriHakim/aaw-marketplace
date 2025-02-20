@@ -1,4 +1,4 @@
-import { InternalServerErrorResponse } from "../../commons/patterns"
+import { InternalServerErrorResponse } from "@src/commons/patterns"
 import { createNewTenant } from "../dao/createNewTenant.dao";
 
 export const createTenantService = async (

@@ -1,6 +1,6 @@
 FROM node:18.18.2 AS builder
 
-WORKDIR /marketplace
+WORKDIR /tenant
 
 COPY package.json ./
 
@@ -22,10 +22,10 @@ FROM node:18.18.2-slim
 ENV PORT 8000
 ENV NODE_ENV production
 
-WORKDIR /marketplace
+WORKDIR /tenant
 
-COPY --from=builder /marketplace/dist ./dist
-COPY --from=builder /marketplace/package.json ./package.json
+COPY --from=builder /tenant/dist ./dist
+COPY --from=builder /tenant/package.json ./package.json
 
 RUN npm install --only=production
 

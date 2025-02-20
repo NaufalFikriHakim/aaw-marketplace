@@ -32,7 +32,7 @@ app.use("/api/product", productRoutes);
 
 // Health check endpoint
 app.get('/health', (_, res) => {
-  res.status(200).json({ status: 'healthy' });
+  res.status(200).json({ status: 'healthy products' });
 });
 
 // Root endpoint

@@ -34,7 +34,7 @@ app.use('/api/cart', cartRoutes);
 
 // Health check endpoint
 app.get('/health', (_, res) => {
-  res.status(200).json({ status: 'healthy' });
+  res.status(200).json({ status: 'healthy orders' });
 });
 
 // Root endpoint
