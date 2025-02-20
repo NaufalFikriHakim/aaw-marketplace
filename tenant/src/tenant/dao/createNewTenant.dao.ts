@@ -1,6 +1,6 @@
 import * as schemaTenant from '../../../db/schema/tenants'
 import * as schemaTenantDetails from '../../../db/schema/tenantDetails'
-import { db } from "@src/db"
+import { db } from "../../db"
 
 export const createNewTenant = async (
     owner_id: string,

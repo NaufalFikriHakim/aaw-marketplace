@@ -1,5 +1,5 @@
 import { NewCategory } from "../../../db/schema/categories";
-import { db } from "@src/db";
+import { db } from "../../db";
 import * as schema from '../../../db/schema/categories'
 
 export const createNewCategory = async (data: NewCategory) => {

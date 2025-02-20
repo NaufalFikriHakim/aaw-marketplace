@@ -1,4 +1,4 @@
-import { db } from "@src/db";
+import { db } from "../../db";
 import { eq } from "drizzle-orm";
 import * as schema from '../../../db/schema/categories'
 

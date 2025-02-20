@@ -1,7 +1,7 @@
-import { InternalServerErrorResponse, NotFoundResponse, UnauthorizedResponse } from "@src/shared/commons/patterns"
+import { InternalServerErrorResponse, NotFoundResponse, UnauthorizedResponse } from "../../commons/patterns"
 import { editTenantById } from "../dao/editTenantById.dao"
 import { getTenantById } from "../dao/getTenantById.dao"
-import { User } from "@src/shared/types/user";
+import { User } from "../../user";
 
 export const editTenantService = async (
     old_tenant_id: string,

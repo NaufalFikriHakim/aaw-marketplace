@@ -1,5 +1,5 @@
 import express from 'express';
-import { validate, verifyJWTTenant } from "@src/shared/middleware";
+import { validate, verifyJWTTenant } from "../middleware";
 import * as Validation from './validation';
 import * as Handler from './tenant.handler';
 
