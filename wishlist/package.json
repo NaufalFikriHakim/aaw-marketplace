@@ -4,12 +4,12 @@
   "description": "wishlist",
   "main": "src/server.ts",
   "scripts": {
-    "start": "node dist/server.js",
+    "start": "node dist/src/server.js",
     "dev": "nodemon --watch src --ext ts --exec ts-node src/server.ts",
     "build": "tsc && tsc-alias",
-    "generate": "drizzle-kit generate:pg",
-    "migrate": "tsx src/db/migrate.ts",
-    "generate-token": "tsx src/generateAdminToken.ts"
+    "generate": "drizzle-kit generate:pg --config=drizzle.config.ts",
+    "migrate": "node dist/src/db/migrate.js",
+    "generate-token": "node dist/src/generateAdminToken.js"
   },
   "author": "",
   "license": "ISC",

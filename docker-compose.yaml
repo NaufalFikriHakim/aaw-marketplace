@@ -27,7 +27,7 @@ services:
       - DB_PORT=5432
       - DB_USER=postgres
       - DB_PASSWORD=postgres
-      - DB_NAME=authentication
+      - DB_NAME=orders
     depends_on:
       - db_orders
 
@@ -42,14 +42,14 @@ services:
       - DB_PORT=5432
       - DB_USER=postgres
       - DB_PASSWORD=postgres
-      - DB_NAME=authentication
+      - DB_NAME=products
       - AUTHENTICATION_API=localhost:8000/api/auth
       - TENANT_API=localhost:8003/api/tenant
     depends_on:
       - db_products
-  
+
   tenant:
-    build: ./orders
+    build: ./tenant
     ports:
       - "8003:8000"
     environment:
@@ -59,7 +59,7 @@ services:
       - DB_PORT=5432
       - DB_USER=postgres
       - DB_PASSWORD=postgres
-      - DB_NAME=authentication
+      - DB_NAME=tenant
       - AUTHENTICATION_API=localhost:8000/api/auth
     depends_on:
       - db_tenant
@@ -75,7 +75,7 @@ services:
       - DB_PORT=5432
       - DB_USER=postgres
       - DB_PASSWORD=postgres
-      - DB_NAME=authentication
+      - DB_NAME=wishlist
     depends_on:
       - db_wishlist
 
@@ -86,9 +86,9 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
-      - "5432:5432"
+      - "5437:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_auth_data:/var/lib/postgresql/data
 
   db_orders:
     image: postgres:latest
@@ -99,7 +99,7 @@ services:
     ports:
       - "5433:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_orders_data:/var/lib/postgresql/data
 
   db_products:
     image: postgres:latest
@@ -110,7 +110,7 @@ services:
     ports:
       - "5434:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_products_data:/var/lib/postgresql/data
 
   db_tenant:
     image: postgres:latest
@@ -121,7 +121,7 @@ services:
     ports:
       - "5435:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_tenant_data:/var/lib/postgresql/data
 
   db_wishlist:
     image: postgres:latest
@@ -132,7 +132,11 @@ services:
     ports:
       - "5436:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_wishlist_data:/var/lib/postgresql/data
 
 volumes:
-  postgres_data:
+  postgres_auth_data:
+  postgres_orders_data:
+  postgres_products_data:
+  postgres_tenant_data:
+  postgres_wishlist_data:
