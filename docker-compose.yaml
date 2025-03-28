@@ -1,0 +1,169 @@
+version: '3.8'
+
+services:
+  authentication:
+    build: ./authentication
+    ports:
+      - "8001:8001"
+    depends_on:
+      auth_db:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      - DB_HOST=auth_db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=aaw_marketplace_authentication
+
+  orders:
+    build: ./orders
+    ports:
+      - "8002:8002"
+    depends_on:
+      orders_db:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      - DB_HOST=orders_db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=aaw_marketplace_orders
+
+  products:
+    build: ./products
+    ports:
+      - "8003:8003"
+    depends_on:
+      products_db:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      - DB_HOST=products_db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=aaw_marketplace_products
+
+  tenant:
+    build: ./tenant
+    ports:
+      - "8004:8004"
+    depends_on:
+      tenant_db:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      - DB_HOST=tenant_db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=aaw_marketplace_tenant
+
+  wishlist:
+    build: ./wishlist
+    ports:
+      - "8005:8005"
+    depends_on:
+      wishlist_db:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      - DB_HOST=wishlist_db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=aaw_marketplace_wishlist
+
+  auth_db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: aaw_marketplace_authentication
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - auth_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 5s
+      retries: 5
+      start_period: 10s
+
+  orders_db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: aaw_marketplace_orders
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5434:5432"
+    volumes:
+      - orders_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 5s
+      retries: 5
+      start_period: 10s
+
+  products_db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: aaw_marketplace_products
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5435:5432"
+    volumes:
+      - products_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 5s
+      retries: 5
+      start_period: 10s
+
+  tenant_db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: aaw_marketplace_tenant
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5436:5432"
+    volumes:
+      - tenant_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 5s
+      retries: 5
+      start_period: 10s
+
+  wishlist_db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: aaw_marketplace_wishlist
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5437:5432"
+    volumes:
+      - wishlist_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 5s
+      retries: 5
+      start_period: 10s
+
+volumes:
+  auth_data:
+  orders_data:
+  products_data:
+  tenant_data:
+  wishlist_data:
